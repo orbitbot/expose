@@ -3,9 +3,10 @@ var plugins       = require('gulp-load-plugins')();
 var templatecache = require('gulp-angular-templatecache');
 var karma         = require('karma').server;
 var _             = require('lodash');
-var browserSync   = require("browser-sync");
+var browserSync   = require('browser-sync');
 var at            = require('gulp-asset-transform');
-var protractor    = require("gulp-protractor").protractor;
+var protractor    = require('gulp-protractor').protractor;
+var del           = require('del');
 
 var paths = {
   css         : ['src/assets/css/*.css', 'src/app/**/*.css'],
@@ -29,14 +30,14 @@ gulp.task('copy-images', function() {
     .pipe(plugins.plumber())
     .pipe(plugins.imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
     .pipe(plugins.size({ title: 'images', showFiles: true }))
-    .pipe(gulp.dest('dist/images'));
+    .pipe(gulp.dest('develop/images'));
 });
 
 gulp.task('copy-fonts', function() {
   return gulp.src(paths.fonts)
     .pipe(plugins.plumber())
     .pipe(plugins.size({ title: 'fonts' }))
-    .pipe(gulp.dest('dist/fonts'));
+    .pipe(gulp.dest('develop/fonts'));
 });
 
 gulp.task('at-build', function() {
@@ -50,6 +51,10 @@ gulp.task('at-build', function() {
       js: {
         tasks: ['concat',
                 plugins.size({ title: 'js', showFiles: true })]
+      },
+      js_lib: {
+        tasks: ['concat',
+                plugins.size({ title: 'js_lib', showFiles: true })]
       },
       less: {
         tasks: [plugins.recess(),
@@ -96,7 +101,7 @@ gulp.task('integration', ['server'], function(done) {
 // gulp.task('integration', function(done) {
   gulp.src(paths.integration)
     .pipe(protractor({
-      configFile: "config/protractor.conf",
+      configFile: 'config/protractor.conf',
       args: ['--baseUrl', 'http://localhost:3000/#/']
     }))
     .on('error', function(e) { browserSync.exit(); throw e; })
