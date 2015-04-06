@@ -15,6 +15,7 @@
         url: '/',
         views: {
           'header': {
+            controller: 'HeaderCtrl',
             templateUrl: 'header/header.html'
           },
           'content': {

@@ -10,7 +10,7 @@
     <ul class="pure-menu-list nav-center">
       <li class="pure-menu-item">
         <form>
-          <input type="url" placeholder="">
+          <input ng-model="active.url" type="url" placeholder="">
         </form>
       </li>
     </ul>
@@ -20,31 +20,43 @@
       <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
         <a href="#" id="menuLink1" class="pure-menu-link">Mobile</a>
         <ul class="pure-menu-children">
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Email</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Twitter</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Tumblr Blog</a></li>
+
+          <li class="pure-menu-item"
+            ng-repeat="mobile in mobiles">
+            <a href="#" class="pure-menu-link">{{ mobile.name }}</a>
+          </li>
+
         </ul>
       </li>
 
       <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
         <a href="#" id="menuLink2" class="pure-menu-link">Tablet</a>
         <ul class="pure-menu-children">
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Email</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Twitter</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Tumblr Blog</a></li>
+
+          <li class="pure-menu-item"
+            ng-repeat="tablet in tablets">
+            <a href="#" class="pure-menu-link">{{ tablet.name }}</a>
+          </li>
+
         </ul>
       </li>
 
       <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
         <a href="#" id="menuLink3" class="pure-menu-link">Desktop</a>
         <ul class="pure-menu-children">
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Email</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Twitter</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Tumblr Blog</a></li>
+
+          <li class="pure-menu-item"
+            ng-repeat="desktop in desktops">
+            <a href="#" class="pure-menu-link">{{ desktop.name }}</a>
+          </li>
+
         </ul>
       </li>
 
-      <li class="pure-menu-item"><a href="#" class="pure-menu-link">Lock</a></li>
+      <li class="pure-menu-item">
+        <a href="#" class="pure-menu-link"
+          ng-click="lock != lock">Lock</a>
+      </li>
     </ul>
   </div>
 </div>
