@@ -6,15 +6,40 @@
   angular.module('exposure').config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
 
-    $stateProvider
-      .state('hello', {
-        url: '/',
-        controller: 'HelloCtrl',
-        templateUrl: 'hello/hello.html'
-      });
-
     $urlRouterProvider
       .when('', '/')
       .otherwise('/');
+
+    $stateProvider
+      .state('app', {
+        url: '/',
+        views: {
+          'header': {
+            templateUrl: 'header/header.html'
+          },
+          'content': {
+            controller: 'HelloCtrl',
+            templateUrl: 'hello/hello.html'
+          }
+        }
+      })
+      .state('app.about', {
+        url: 'about',
+        views: {
+          'content@': {
+            controller: 'AboutCtrl',
+            templateUrl: 'about/about.html'
+          }
+        }
+      })
+      .state('app.history', {
+        url: 'history',
+        views: {
+          'content@': {
+            controller: 'HistoryCtrl',
+            templateUrl: 'history/history.html'
+          }
+        }
+      });
   }]);
 })();
