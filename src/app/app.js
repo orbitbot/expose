@@ -18,8 +18,8 @@
             templateUrl: 'header/header.html'
           },
           'content': {
-            controller: 'HelloCtrl',
-            templateUrl: 'hello/hello.html'
+            controller: 'ExamineCtrl',
+            templateUrl: 'examine/examine.html'
           }
         }
       })

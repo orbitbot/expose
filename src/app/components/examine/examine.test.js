@@ -1,4 +1,4 @@
-describe('HelloCtrl', function() {
+describe('ExamineCtrl', function() {
 
   beforeEach(function() {
     module('exposure');
@@ -8,13 +8,11 @@ describe('HelloCtrl', function() {
 
   beforeEach(inject(function($controller, $rootScope) {
     scope = $rootScope.$new();
-    ctrl = $controller('HelloCtrl', {
+    ctrl = $controller('ExamineCtrl', {
       $scope: scope
     });
   }));
 
-  it('greets everyone', function() {
-    expect(scope.name).to.equal('World');
-  });
+  it('writes a reasonable test');
 
 });
