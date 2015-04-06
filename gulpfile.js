@@ -15,7 +15,7 @@ var paths = {
   index       : 'src/index.html',
   integration : 'test/integration/*.js',
   js          : 'src/app/**/*.js',
-  less        : ['src/assets/less/*.less', 'src/app/**/**/*.less'],
+  less        : ['src/assets/less/*.less', 'src/app/components/**/*.less'],
   templates   : 'src/app/components/**/*.html'
 };
 
@@ -57,9 +57,7 @@ gulp.task('at-build', function() {
                 plugins.size({ title: 'js_lib', showFiles: true })]
       },
       less: {
-        tasks: [plugins.recess(),
-                plugins.recess.reporter(),
-                plugins.less(),
+        tasks: [plugins.less(),
                 'concat',
                 plugins.size({ title: 'less', showFiles: true})]
       }
@@ -83,6 +81,13 @@ gulp.task('jshint', function() {
     .pipe(plugins.jshint.reporter('jshint-stylish'));
 });
 
+gulp.task('less-lint', function() {
+  gulp.src(paths.less)
+    .pipe(plugins.plumber())
+    .pipe(plugins.recess())
+    .pipe(plugins.recess.reporter());
+});
+
 
 gulp.task('clean', function(done) {
   del(['develop/**'], done);
@@ -98,7 +103,6 @@ gulp.task('karma-ci', function(done) {
 });
 
 gulp.task('integration', ['server'], function(done) {
-// gulp.task('integration', function(done) {
   gulp.src(paths.integration)
     .pipe(protractor({
       configFile: 'config/protractor.conf',
@@ -106,8 +110,6 @@ gulp.task('integration', ['server'], function(done) {
     }))
     .on('error', function(e) { browserSync.exit(); throw e; })
     .on('end', function() { browserSync.exit(); done(); });
-    // .on('error', function(e) { throw e; })
-    // .on('end', function() { done(); });
 });
 
 
@@ -126,6 +128,7 @@ gulp.task('watch', function() {
   gulp.watch([paths.images, paths.fonts], ['copy-assets']);
   gulp.watch([paths.templates], ['templates']);
   gulp.watch([paths.js], ['jshint']);
+  gulp.watch([paths.less], ['less-lint']);
 });
 
 gulp.task('copy-assets', ['copy-images', 'copy-fonts']);
