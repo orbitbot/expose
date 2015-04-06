@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="exposure">
+<html lang="en" ng-app="exposure" class="no-js">
   <head>
     <meta charset="utf-8">
     <title>Exposure</title>
@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="../bower_components/normalize.css/normalize.css">
     <link rel="stylesheet" href="../bower_components/pure/menus.css">
     <!-- at:end -->
+    <!-- at:less >> css/site.css -->
+    <link rel="stylesheet" href="assets/less/base.less">
+    <link rel="stylesheet" href="app/components/header/navigation.less">
+    <!-- at:end -->
+    <script>
+      document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
+    </script>
   </head>
   <body>
 
