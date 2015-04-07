@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('exposure', ['templates', 'ui.router']);
+  angular.module('exposure', ['templates', 'ui.router', 'ng-appcache']);
 
   angular.module('exposure').config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {

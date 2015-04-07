@@ -21,6 +21,8 @@ describe('HeaderCtrl', function() {
   it('adds screens to active set if a previously unselected one is chosen');
   it('removes screns from active set if a previously selected one is chosen');
   it('disables modifying screen set if lock is enabled');
+  it('displays update available if there is a downloaded update for the application cache');
+  it('reloads the page if update available is clicked');
 
 
 });
