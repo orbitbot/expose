@@ -13,8 +13,6 @@ describe('HistoryCtrl', function() {
     });
   }));
 
-  it('shows navigation history', function() {
-    expect(scope.history).to.equal('History');
-  });
+  it('shows navigation history');
 
 });

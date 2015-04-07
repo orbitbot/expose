@@ -5,7 +5,7 @@
     .controller('HistoryCtrl', ['$scope', 'history',
                                function($scope, history) {
 
-    $scope.history = 'History';
+    $scope.history = history;
 
   }]);
 })();
