@@ -1,7 +1,6 @@
-<h2>{{ current.url }}</h2>
-
-<div ng-repeat="screen in current.screens">
-  url: {{ current.url }} <br />
-  width: {{ screen.width }} <br />
-  height: {{ screen.height }}<br />
-</div>
+<screen
+  ng-repeat="screen in current.screens"
+  url="{{ current.url }}"
+  width="{{ screen.width }}"
+  height="{{ screen.height }}">
+</screen>
