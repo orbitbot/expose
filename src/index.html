@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="exposure" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>Exposure</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- at:css >> css/lib.css -->
+    <link rel="stylesheet" href="../bower_components/normalize.css/normalize.css">
+    <link rel="stylesheet" href="../bower_components/pure/menus.css">
+    <!-- at:end -->
+    <!-- at:less >> css/site.css -->
+    <link rel="stylesheet" href="assets/less/base.less">
+    <link rel="stylesheet" href="app/components/header/header.less">
+    <!-- at:end -->
+    <script>
+      document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
+    </script>
+  </head>
+  <body>
+
+    <div ui-view="header"></div>
+    <div ui-view="content"></div>
+
+    <!-- at:js_lib >> js/lib.js -->
+    <script type="text/javascript" src="assets/js/menus.js"></script>
+    <script type="text/javascript" src="../bower_components/pouchdb/dist/pouchdb.js"></script>
+    <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-pouchdb/dist/angular-pouchdb.js"></script>
+    <script type="text/javascript" src="../bower_components/ng-appcache/dist/appcache.js"></script>
+    <!-- at:end -->
+    <!-- at:js >> js/app.js -->
+    <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="app/model/active.js"></script>
+    <script type="text/javascript" src="app/model/history.js"></script>
+    <script type="text/javascript" src="app/model/screenSizes.js"></script>
+    <script type="text/javascript" src="app/shared/screens.js"></script>
+    <script type="text/javascript" src="app/components/about/AboutCtrl.js"></script>
+    <script type="text/javascript" src="app/components/examine/ExamineCtrl.js"></script>
+    <script type="text/javascript" src="app/components/header/HeaderCtrl.js"></script>
+    <script type="text/javascript" src="app/components/history/HistoryCtrl.js"></script>
+    <!-- at:end -->
+    <script src="js/templates.js"></script>
+  </body>
+</html>
