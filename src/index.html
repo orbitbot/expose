@@ -21,12 +21,22 @@
     <style>
       .js    .noscript { display: none;  }
       .no-js .noscript { display: block; }
+
+      [ng-cloak], .preload { display: none; }
+      [ng-cloak] ~ .preload { display: block; }
+
+      #examine { display: block; }
+      .state { display: none; }
+      .state:target { display: block; }
+      .state:target ~ #examine { display: none; }
     </style>
   </head>
   <body>
 
-    <div ui-view="header"></div>
-    <div ui-view="content"></div>
+    <div ng-cloak>
+      <div ui-view="header"></div>
+      <div ui-view="content"></div>
+    </div>
 
     <!-- at:js_lib >> js/lib.js -->
     <script type="text/javascript" src="assets/js/menus.js"></script>
@@ -49,6 +59,65 @@
     <script type="text/javascript" src="app/components/settings/SettingsCtrl.js"></script>
     <!-- at:end -->
     <script src="js/templates.js"></script>
+
+    <div class="preload">
+        <div class="header">
+          <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+            <a href="#" class="pure-menu-heading">Exposure</a>
+
+            <ul class="pure-menu-list">
+              <li class="pure-menu-item">&nbsp;</li>
+              <li class="pure-menu-item"><a href="#menu" class="pure-menu-link">Menu</a></li>
+              <li class="pure-menu-item"><a href="#history" class="pure-menu-link">History</a></li>
+            </ul>
+
+            <ul class="pure-menu-list nav-center">
+              <li class="pure-menu-item">
+                <form novalidate>
+                  <input type="url" placeholder="">
+                </form>
+              </li>
+            </ul>
+
+            <ul class="pure-menu-list u-pull-right">
+              <li class="pure-menu-item">preload</li>
+              <li class="pure-menu-item">preload</li>
+              <li class="pure-menu-item">preload</li>
+              <li class="pure-menu-item">preload</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="about" class="state">
+          <h1>About</h1>
+        </div>
+
+        <div id="docs" class="state">
+          <h4>Loading documentation</h4>
+        </div>
+
+        <div id="history" class="state">
+          <h4>Loading history</h4>
+        </div>
+
+        <div id="menu" class="state">
+          <div class="container">
+            <a href="#about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <a href="#docs">Documentation</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <a href="#settings">Settings</a>  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <a href="https://github.com/orbitbot/exposure" target="_blank">Source code</a>  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <a href="https://github.com/orbitbot/exposure/issues" target="_blank">Issues</a>
+          </div>
+        </div>
+
+        <div id="settings" class="state">
+          <h4>Loading settings</h4>
+        </div>
+
+        <div id="examine" class="state">
+           <h4>Loading</h4>
+        </div>
+    </div>
 
     <div class="noscript">
         <div class="header">
