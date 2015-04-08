@@ -33,6 +33,14 @@
           }
         }
       })
+      .state('app.docs', {
+        url: 'docs',
+        views: {
+          'content@': {
+            templateUrl: 'docs/docs.html'
+          }
+        }
+      })
       .state('app.history', {
         url: 'history',
         views: {
@@ -41,6 +49,28 @@
             templateUrl: 'history/history.html'
           }
         }
+      })
+      .state('app.menu', {
+        url: 'menu',
+        views: {
+          'content@': {
+            templateUrl: 'menu/menu.html'
+          }
+        }
+      })
+      .state('app.settings', {
+        url: 'settings',
+        views: {
+          'content@': {
+            controller: 'SettingsCtrl',
+            templateUrl: 'settings/settings.html'
+          }
+        }
       });
   }]);
+
+  angular.module('exposure')
+    .constant('version', {
+      semver: '0.0.2'
+  });
 })();
