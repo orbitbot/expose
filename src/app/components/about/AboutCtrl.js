@@ -1,9 +1,9 @@
 (function() {
   'use strict';
 
-  angular.module('exposure').controller('AboutCtrl', ['$scope', function($scope) {
+  angular.module('exposure').controller('AboutCtrl', ['$scope', 'version', function($scope, version) {
 
-    $scope.help = 'documentation';
+    $scope.version = version;
 
   }]);
 })();
