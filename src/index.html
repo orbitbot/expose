@@ -18,6 +18,10 @@
     <script>
       document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
     </script>
+    <style>
+      .js    .noscript { display: none;  }
+      .no-js .noscript { display: block; }
+    </style>
   </head>
   <body>
 
@@ -45,5 +49,36 @@
     <script type="text/javascript" src="app/components/settings/SettingsCtrl.js"></script>
     <!-- at:end -->
     <script src="js/templates.js"></script>
+
+    <div class="noscript">
+        <div class="header">
+          <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+            <a href="#" class="pure-menu-heading">Exposure</a>
+
+            <ul class="pure-menu-list">
+              <li class="pure-menu-item">preload</li>
+              <li class="pure-menu-item">preload</li>
+              <li class="pure-menu-item">preload</li>
+            </ul>
+
+            <ul class="pure-menu-list nav-center">
+              <li class="pure-menu-item">preload</li>
+            </ul>
+
+            <ul class="pure-menu-list u-pull-right">
+              <li class="pure-menu-item">preload</li>
+              <li class="pure-menu-item">preload</li>
+              <li class="pure-menu-item">preload</li>
+              <li class="pure-menu-item">preload</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="container">
+          <p>Exposure requires Javascript for fundamental functioanlity, please enable support in your browser and reload</p>
+          <p>Exposure is an open source project, source code is available on <a href="https://github.com/orbitbot/exposure" target="_blank">GitHub</a></p>
+        </div>
+    </div>
+
   </body>
 </html>
