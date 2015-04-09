@@ -10,10 +10,11 @@ describe('Url validator', function() {
     url_regexp = validator.regexp;
   }));
 
-  // urls are based on test cases from https://github.com/ogt/valid-url, RFC1738
+  // urls are based on test cases from RFC1738, RFC3986,
+  //                                   https://github.com/ogt/valid-url,
+  //                                   https://mathiasbynens.be/demo/url-regex
 
   var schemes = [
-    // '',
     'http://',
     'https://'
   ];
@@ -23,6 +24,26 @@ describe('Url validator', function() {
     'localhost/',
     'localhost/path',
     // 'localhost:1234/some/path',
+    'foo.com/blah_blah',
+    'foo.com/blah_blah/',
+    'foo.com/blah_blah_(wikipedia)',
+    'foo.com/blah_blah_(wikipedia)_(again)',
+    'www.example.com/wpstyle/?p=364',
+    'www.example.com/foo/?bar=baz&inga=42&quux',
+    'userid:password@example.com:8080',
+    'userid:password@example.com:8080/',
+    'userid@example.com',
+    'userid@example.com/',
+    'userid@example.com:8080',
+    'userid@example.com:8080/',
+    'userid:password@example.com',
+    'userid:password@example.com/',
+    'foo.com/blah_(wikipedia)#cite-1',
+    'foo.com/blah_(wikipedia)_blah#cite-1',
+    'code.google.com/events/#&product=browser,',
+    'j.mp',
+    '1337.net',
+    'a.b-c.de',
     'www.example.com',
     'www.example.com/',
     'www.example.com/path',
@@ -35,10 +56,27 @@ describe('Url validator', function() {
   ];
 
   var valid_filepaths = [
+    "file:///etc/hosts",
     'file://vms.host.edu/disk$user/my/notes/note12345.txt'
   ];
 
   var invalid_urls = [
+    // 'http://.',
+    // 'http://..',
+    // 'http://../',
+    // 'http://?',
+    // 'http://??',
+    // 'http://??/',
+    // 'http://#',
+    // 'http://##',
+    // 'http://##/',
+    'http://foo.bar?q=Spaces should be encoded',
+    // 'http://test',
+    'http:// shouldfail.com',
+    'http:// should fail',
+    // 'http://.www.foo.bar/',
+    // 'http://www.foo.bar./',
+    // 'http://.www.foo.bar./',
     'http:www.example.com',
     'https:www.example.com',
     // 'http://example.w3.org/%illegal.html',

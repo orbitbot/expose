@@ -14,7 +14,7 @@ describe('HeaderCtrl', function() {
   }));
 
   it('stores successfully loaded urls in history');
-  it('does something useful with fail case');
+  it('does something useful with storage fail case');
 
   it('suggest previous session urls');
   it('displays a prompt if a new valid url is typed');
