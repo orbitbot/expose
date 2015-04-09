@@ -72,5 +72,8 @@
   angular.module('exposure')
     .constant('version', {
       semver: '0.0.2'
-  });
+    })
+    .constant('validator', {
+      regexp: /^(file|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?$/
+    });
 })();
