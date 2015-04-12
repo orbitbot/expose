@@ -24,37 +24,18 @@
 
     <ul class="pure-menu-list u-pull-right">
 
-      <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-        <a href="#" id="menuLink1" class="pure-menu-link">Mobile</a>
+      <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover"
+        ng-repeat="device in devices">
+        <a href="#" id="menuLink1" class="pure-menu-link">{{ device.type }}</a>
         <ul class="pure-menu-children">
 
           <li class="pure-menu-item"
-            ng-repeat="mobile in mobiles">
-            <a href="#" class="pure-menu-link">{{ mobile.name }}</a>
-          </li>
-
-        </ul>
-      </li>
-
-      <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-        <a href="#" id="menuLink2" class="pure-menu-link">Tablet</a>
-        <ul class="pure-menu-children">
-
-          <li class="pure-menu-item"
-            ng-repeat="tablet in tablets">
-            <a href="#" class="pure-menu-link">{{ tablet.name }}</a>
-          </li>
-
-        </ul>
-      </li>
-
-      <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-        <a href="#" id="menuLink3" class="pure-menu-link">Desktop</a>
-        <ul class="pure-menu-children">
-
-          <li class="pure-menu-item"
-            ng-repeat="desktop in desktops">
-            <a href="#" class="pure-menu-link">{{ desktop.name }}</a>
+            ng-repeat="screen in device.screens">
+            <a href="#" class="pure-menu-link"
+              ng-class="activeNames.indexOf(screen.name) >= 0 ? 'pure-menu-selected' : 'pure-menu-disabled'"
+              ng-click="toggleScreen(screen.name)">
+              {{ screen.name }}
+            </a>
           </li>
 
         </ul>
@@ -62,7 +43,8 @@
 
       <li class="pure-menu-item">
         <a href="#" class="pure-menu-link"
-          ng-click="lock != lock">Lock</a>
+          ng-class="lock ? '' : 'pure-menu-disabled'"
+          ng-click="lock = !lock">Lock</a>
       </li>
     </ul>
   </div>
