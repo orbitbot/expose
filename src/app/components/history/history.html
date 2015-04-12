@@ -3,6 +3,6 @@
   <button ng-click="clearHistory()">Clear history</button>
 
   <div ng-repeat="website in history" style="height:40px; border: 1px solid #ddd; margin: 10px 0; padding:4px;">
-    {{ website.url }} - {{ website.timestamp }} <!-- {{ website.screens }} --> <button class="u-pull-right" ng-click="remove(website.url)">Remove</button>
+    {{ website.url }} - {{ website.timestamp | fromNow }} <!-- {{ website.screens }} --> <button class="u-pull-right" ng-click="remove(website.url)">Remove</button>
   </div>
 </div>
