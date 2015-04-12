@@ -49,9 +49,9 @@ describe('Url history service', function() {
   });
 
   it('retrieves a sorted url history', function(done) {
-    var site1 = { url: 'http://example.com'     , timestamp: new Date(2000) };
-    var site2 = { url: 'http://www.example.com' , timestamp: new Date(2005) };
-    var site3 = { url: 'http://www.example3.com', timestamp: new Date() };
+    var site1 = { url: 'http://example.com'     , timestamp: Date(2000,0) };
+    var site2 = { url: 'http://www.example.com' , timestamp: Date(2005,0) };
+    var site3 = { url: 'http://www.example3.com', timestamp: Date() };
 
     sandbox.stub(db, 'get', function() {
       return $q.when({

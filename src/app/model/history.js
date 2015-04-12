@@ -6,7 +6,7 @@
     function addWebsiteToHistory(website) {
       db.upsert('history', function(doc) {
         var url = website.url;
-        doc.url = website;
+        doc[url] = website;
 
         return doc;
       }).then(function(res) {
@@ -17,8 +17,8 @@
     }
 
     function clearStoredHistory() {
-      db.get('history').then(function(doc) {
-        return db.remove('history');
+      return db.get('history').then(function(doc) {
+        return db.remove(doc);
       }).then(function(res) {
         $log.log('history removed', res);
       }).catch(function(err) {
@@ -29,12 +29,14 @@
     function getStoredHistory() {
       return db.get('history').then(function(doc) {
         var array = [];
+        delete doc._id;
+        delete doc._rev;
 
         for (var site in doc)
           array.push(doc[site]);
 
         array.sort(function(left, right) {
-          return new Date(left.timestamp) - new Date(right.timestamp);
+          return new Date(right.timestamp) - new Date(left.timestamp);
         });
 
         return array;
@@ -45,11 +47,12 @@
     }
 
     function removeWebsiteFromHistory(url) {
-      db.upsert('history', function(doc) {
-        if (!doc.url)
+      return db.upsert('history', function(doc) {
+        if (!doc[url]) {
           return false;
+        }
 
-        delete doc.url;
+        delete doc[url];
         return doc;
       }).then(function(res) {
         $log.log('removed website from history', res);
@@ -60,13 +63,13 @@
 
     function updateHistory(url, screens) {
       db.upsert('history', function(doc) {
-        if (!doc.url)
+        if (!doc[url])
           return false;
 
         if (angular.isUndefined(screens))
-          doc.url.timestamp = Date();
+          doc[url].timestamp = Date();
         else
-          doc.url.screens = screens;
+          doc[url].screens = screens;
         return doc;
       }).then(function(res) {
         $log.log('updated website history', res);
