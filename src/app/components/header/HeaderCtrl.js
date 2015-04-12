@@ -25,7 +25,7 @@
         history.add({
           url       : url,
           timestamp : Date(),
-          screens   : []
+          screens   : angular.copy($scope.active.screens)
         });
       }
     };
