@@ -16,8 +16,8 @@
 
     <ul class="pure-menu-list nav-center">
       <li class="pure-menu-item">
-        <form novalidate>
-          <input ng-model="active.url" type="url" placeholder="">
+        <form novalidate ng-submit="loadPage(url)">
+          <input ng-model="url" type="url" placeholder="" >
         </form>
       </li>
     </ul>
