@@ -1,4 +1,8 @@
-<p>Enable/disable</p>
+<div class="container">
+  <button>Enable/disable</button>
+  <button ng-click="clearHistory()">Clear history</button>
 
-<p>url  --- (details (screensizes... and...))  Remove</p>
-
+  <div ng-repeat="website in history" style="height:40px; border: 1px solid #ddd; margin: 10px 0; padding:4px;">
+    {{ website.url }} - {{ website.timestamp }} <!-- {{ website.screens }} --> <button class="u-pull-right" ng-click="remove(website.url)">Remove</button>
+  </div>
+</div>

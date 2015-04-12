@@ -69,6 +69,14 @@
       });
   }]);
 
+  angular.module('exposure').config(['pouchDBProvider', 'POUCHDB_METHODS',
+    function(pouchDBProvider, POUCHDB_METHODS) {
+
+      pouchDBProvider.methods = angular.extend({}, POUCHDB_METHODS, {
+        upsert: 'qify',
+      });
+  }]);
+
   angular.module('exposure')
     .constant('version', {
       semver: '0.0.2'
