@@ -6,14 +6,23 @@
       restrict: 'E',
       replace: true,
       scope: {
-        height: '@height',
-        width: '@width'
+        height   : '@',
+        width    : '@',
+        portrait : '@'
       },
-      template: '<iframe class="frame" height="{{ height }}" width="{{ width }}" frameborder="0" border="0" marginwidth="0" marginheight="0" scrolling></iframe>',
+      template: '<iframe class="frame" frameborder="0" border="0" marginwidth="0" marginheight="0" scrolling></iframe>',
       link: function(scope, element, attr) {
-        console.log(element);
         element.attr('src', attr.url);
         element.on('load', function() { console.log('load'); });
+        attr.$observe('portrait', function(change) {
+          if (scope.$eval(change)) {
+            element.attr('height', attr.height);
+            element.attr('width', attr.width);
+          } else {
+            element.attr('height', attr.width);
+            element.attr('width', attr.height);
+          }
+        });
 
       }
     };

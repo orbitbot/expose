@@ -1,6 +1,13 @@
-<screen
-  ng-repeat="screen in current.screens"
-  url="{{ current.url }}"
-  width="{{ screen.width }}"
-  height="{{ screen.height }}">
-</screen>
+<div style="margin:8px; display: inline-block"
+  ng-repeat="screen in current.screens">
+  <p style="border: 1px solid #ddd; margin: 10px 0; padding:4px;text-align:center;">
+    {{ screen.name }} {{ screen.width }}x{{ screen.height }}
+    <button ng-click="screen.portrait = !screen.portrait">toggle</button><br />
+  </p>
+  <screen
+    url="{{ current.url }}"
+    width="{{ screen.width }}"
+    height="{{ screen.height }}"
+    portrait="{{ screen.portrait}}">
+  </screen>
+</div>
