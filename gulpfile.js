@@ -1,5 +1,5 @@
 var gulp          = require('gulp');
-var plugins       = require('gulp-load-plugins')();
+var $             = require('gulp-load-plugins')();
 var templatecache = require('gulp-angular-templatecache');
 var karma         = require('karma').server;
 var _             = require('lodash');
@@ -27,39 +27,39 @@ var config = {
 
 gulp.task('copy-images', function() {
   return gulp.src(paths.images)
-    .pipe(plugins.plumber())
-    .pipe(plugins.imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
-    .pipe(plugins.size({ title: 'images', showFiles: true }))
+    .pipe($.plumber())
+    .pipe($.imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
+    .pipe($.size({ title: 'images', showFiles: true }))
     .pipe(gulp.dest('develop/images'));
 });
 
 gulp.task('copy-fonts', function() {
   return gulp.src(paths.fonts)
-    .pipe(plugins.plumber())
-    .pipe(plugins.size({ title: 'fonts' }))
+    .pipe($.plumber())
+    .pipe($.size({ title: 'fonts' }))
     .pipe(gulp.dest('develop/fonts'));
 });
 
 gulp.task('at-build', function() {
   return gulp.src(paths.index)
-    .pipe(plugins.plumber())
+    .pipe($.plumber())
     .pipe(at({
       css: {
         tasks: ['concat',
-                plugins.size({ title: 'css', showFiles: true })]
+                $.size({ title: 'css', showFiles: true })]
       },
       js: {
         tasks: ['concat',
-                plugins.size({ title: 'js', showFiles: true })]
+                $.size({ title: 'js', showFiles: true })]
       },
       js_lib: {
         tasks: ['concat',
-                plugins.size({ title: 'js_lib', showFiles: true })]
+                $.size({ title: 'js_lib', showFiles: true })]
       },
       less: {
-        tasks: [plugins.less(),
+        tasks: [$.less(),
                 'concat',
-                plugins.size({ title: 'less', showFiles: true})]
+                $.size({ title: 'less', showFiles: true})]
       }
     }))
     .pipe(gulp.dest('develop/'))
@@ -68,24 +68,24 @@ gulp.task('at-build', function() {
 
 gulp.task('templates', function () {
   return gulp.src(paths.templates)
-    .pipe(plugins.plumber())
+    .pipe($.plumber())
     .pipe(templatecache('templates.js', { standalone: true }))
-    .pipe(plugins.size({ title: 'templates' }))
+    .pipe($.size({ title: 'templates' }))
     .pipe(gulp.dest('develop/js'))
     .pipe(browserSync.reload({ stream: true }));
 });
 
 gulp.task('jshint', function() {
   gulp.src(paths.js)
-    .pipe(plugins.jshint(config.jshint))
-    .pipe(plugins.jshint.reporter('jshint-stylish'));
+    .pipe($.jshint(config.jshint))
+    .pipe($.jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('less-lint', function() {
   gulp.src(paths.less)
-    .pipe(plugins.plumber())
-    .pipe(plugins.recess())
-    .pipe(plugins.recess.reporter());
+    .pipe($.plumber())
+    .pipe($.recess())
+    .pipe($.recess.reporter());
 });
 
 
