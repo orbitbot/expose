@@ -52,6 +52,7 @@ gulp.task('at-build', function() {
         stream: function(filestream, outputfilename) {
           return filestream
             .pipe($.concat(outputfilename))
+            .pipe($.if(release, $.minifyCss()))
             .pipe($.size({ title: 'css', showFiles: true }));
           }
       },
@@ -59,6 +60,7 @@ gulp.task('at-build', function() {
         stream: function(filestream, outputfilename) {
           return filestream
             .pipe($.concat(outputfilename))
+            .pipe($.if(release, $.uglify()))
             .pipe($.size({ title: 'js', showFiles: true }));
         }
       },
@@ -67,6 +69,7 @@ gulp.task('at-build', function() {
           return filestream
             .pipe($.less())
             .pipe($.concat(outputfilename))
+            .pipe($.if(release, $.minifyCss()))
             .pipe($.size({ title: 'less', showFiles: true }));
         }
       }
@@ -79,6 +82,7 @@ gulp.task('templates', function () {
   return gulp.src(paths.templates)
     .pipe($.plumber())
     .pipe(templatecache('templates.js', { standalone: true }))
+    .pipe($.if(release, $.uglify()))
     .pipe($.size({ title: 'templates' }))
     .pipe(dest('js'))
     .pipe(browserSync.reload({ stream: true }));
