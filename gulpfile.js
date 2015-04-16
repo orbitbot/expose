@@ -45,21 +45,26 @@ gulp.task('at-build', function() {
     .pipe($.plumber())
     .pipe(at({
       css: {
-        tasks: ['concat',
-                $.size({ title: 'css', showFiles: true })]
+        stream: function(filestream, outputfilename) {
+          return filestream
+            .pipe($.concat(outputfilename))
+            .pipe($.size({ title: 'css', showFiles: true }));
+          }
       },
       js: {
-        tasks: ['concat',
-                $.size({ title: 'js', showFiles: true })]
-      },
-      js_lib: {
-        tasks: ['concat',
-                $.size({ title: 'js_lib', showFiles: true })]
+        stream: function(filestream, outputfilename) {
+          return filestream
+            .pipe($.concat(outputfilename))
+            .pipe($.size({ title: 'js', showFiles: true }));
+        }
       },
       less: {
-        tasks: [$.less(),
-                'concat',
-                $.size({ title: 'less', showFiles: true})]
+        stream: function(filestream, outputfilename) {
+          return filestream
+            .pipe($.less())
+            .pipe($.concat(outputfilename))
+            .pipe($.size({ title: 'less', showFiles: true }));
+        }
       }
     }))
     .pipe(gulp.dest('develop/'))
