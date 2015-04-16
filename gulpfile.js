@@ -51,7 +51,9 @@ gulp.task('at-build', function() {
       css: {
         stream: function(filestream, outputfilename) {
           return filestream
+            .pipe($.if(!release, $.sourcemaps.init()))
             .pipe($.concat(outputfilename))
+            .pipe($.if(!release, $.sourcemaps.write()))
             .pipe($.if(release, $.minifyCss()))
             .pipe($.size({ title: 'css', showFiles: true }));
           }
@@ -67,8 +69,10 @@ gulp.task('at-build', function() {
       less: {
         stream: function(filestream, outputfilename) {
           return filestream
+            .pipe($.if(!release, $.sourcemaps.init()))
             .pipe($.less())
             .pipe($.concat(outputfilename))
+            .pipe($.if(!release, $.sourcemaps.write()))
             .pipe($.if(release, $.minifyCss()))
             .pipe($.size({ title: 'less', showFiles: true }));
         }
