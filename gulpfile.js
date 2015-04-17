@@ -1,5 +1,5 @@
 var gulp          = require('gulp');
-var plugins       = require('gulp-load-plugins')();
+var $             = require('gulp-load-plugins')();
 var templatecache = require('gulp-angular-templatecache');
 var karma         = require('karma').server;
 var _             = require('lodash');
@@ -23,69 +23,86 @@ var config = {
   jshint : 'config/jshint.conf',
   karma  : require('./config/karma.conf')
 };
+var release;
 
+function dest(suffix) {
+  return gulp.dest(release ? 'release/' + suffix : 'develop/' + suffix);
+}
 
 gulp.task('copy-images', function() {
   return gulp.src(paths.images)
-    .pipe(plugins.plumber())
-    .pipe(plugins.imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
-    .pipe(plugins.size({ title: 'images', showFiles: true }))
-    .pipe(gulp.dest('develop/images'));
+    .pipe($.plumber())
+    .pipe($.imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
+    .pipe($.size({ title: 'images', showFiles: true }))
+    .pipe(dest('images'));
 });
 
 gulp.task('copy-fonts', function() {
   return gulp.src(paths.fonts)
-    .pipe(plugins.plumber())
-    .pipe(plugins.size({ title: 'fonts' }))
-    .pipe(gulp.dest('develop/fonts'));
+    .pipe($.plumber())
+    .pipe($.size({ title: 'fonts' }))
+    .pipe(dest('fonts'));
 });
 
 gulp.task('at-build', function() {
   return gulp.src(paths.index)
-    .pipe(plugins.plumber())
+    .pipe($.plumber())
     .pipe(at({
       css: {
-        tasks: ['concat',
-                plugins.size({ title: 'css', showFiles: true })]
+        stream: function(filestream, outputfilename) {
+          return filestream
+            .pipe($.if(!release, $.sourcemaps.init()))
+            .pipe($.concat(outputfilename))
+            .pipe($.if(!release, $.sourcemaps.write()))
+            .pipe($.if(release, $.minifyCss()))
+            .pipe($.size({ title: 'css', showFiles: true }));
+          }
       },
       js: {
-        tasks: ['concat',
-                plugins.size({ title: 'js', showFiles: true })]
-      },
-      js_lib: {
-        tasks: ['concat',
-                plugins.size({ title: 'js_lib', showFiles: true })]
+        stream: function(filestream, outputfilename) {
+          return filestream
+            .pipe($.concat(outputfilename))
+            .pipe($.if(release, $.uglify()))
+            .pipe($.size({ title: 'js', showFiles: true }));
+        }
       },
       less: {
-        tasks: [plugins.less(),
-                'concat',
-                plugins.size({ title: 'less', showFiles: true})]
+        stream: function(filestream, outputfilename) {
+          return filestream
+            .pipe($.if(!release, $.sourcemaps.init()))
+            .pipe($.less())
+            .pipe($.concat(outputfilename))
+            .pipe($.if(!release, $.sourcemaps.write()))
+            .pipe($.if(release, $.minifyCss()))
+            .pipe($.size({ title: 'less', showFiles: true }));
+        }
       }
     }))
-    .pipe(gulp.dest('develop/'))
+    .pipe(dest(''))
     .pipe(browserSync.reload({ stream: true }));
 });
 
 gulp.task('templates', function () {
   return gulp.src(paths.templates)
-    .pipe(plugins.plumber())
+    .pipe($.plumber())
     .pipe(templatecache('templates.js', { standalone: true }))
-    .pipe(plugins.size({ title: 'templates' }))
-    .pipe(gulp.dest('develop/js'))
+    .pipe($.if(release, $.uglify()))
+    .pipe($.size({ title: 'templates' }))
+    .pipe(dest('js'))
     .pipe(browserSync.reload({ stream: true }));
 });
 
 gulp.task('jshint', function() {
   gulp.src(paths.js)
-    .pipe(plugins.jshint(config.jshint))
-    .pipe(plugins.jshint.reporter('jshint-stylish'));
+    .pipe($.jshint(config.jshint))
+    .pipe($.jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('less-lint', function() {
   gulp.src(paths.less)
-    .pipe(plugins.plumber())
-    .pipe(plugins.recess())
-    .pipe(plugins.recess.reporter());
+    .pipe($.plumber())
+    .pipe($.recess())
+    .pipe($.recess.reporter());
 });
 
 
@@ -116,7 +133,7 @@ gulp.task('integration', ['server'], function(done) {
 gulp.task('server', function() {
   browserSync({
     server: {
-      baseDir: 'develop'
+      baseDir: release ? 'release/' : 'develop/'
     },
     logConnections: true,
     open: false
@@ -134,3 +151,9 @@ gulp.task('watch', function() {
 gulp.task('copy-assets', ['copy-images', 'copy-fonts']);
 gulp.task('build', ['at-build', 'templates', 'copy-assets']);
 gulp.task('develop', ['build', 'server', 'watch', 'karma-ci']);
+
+
+gulp.task('setRelease', function(done) { release = true; done(); });
+gulp.task('testRelease', ['setRelease', 'integration']);
+
+gulp.task('release', ['setRelease', 'build']);
