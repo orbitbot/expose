@@ -110,10 +110,6 @@ gulp.task('clean', function(done) {
   del(['develop/**'], done);
 });
 
-gulp.task('clean-release', function(done) {
-  del(['release/'], done);
-});
-
 
 gulp.task('karma', function(done) {
   karma.start(_.assign({}, config.karma, { singleRun: true, colors: true }), done);
@@ -137,7 +133,7 @@ gulp.task('integration', ['server'], function(done) {
 gulp.task('server', function() {
   browserSync({
     server: {
-      baseDir: 'develop'
+      baseDir: release ? 'release/' : 'develop/'
     },
     logConnections: true,
     open: false
@@ -158,4 +154,6 @@ gulp.task('develop', ['build', 'server', 'watch', 'karma-ci']);
 
 
 gulp.task('setRelease', function(done) { release = true; done(); });
+gulp.task('testRelease', ['setRelease', 'integration']);
+
 gulp.task('release', ['setRelease', 'build']);
