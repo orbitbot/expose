@@ -4,10 +4,19 @@ describe('Url validator', function() {
     module('exposure');
   });
 
-  var url_regexp;
+  var $scope;
+  var form;
 
-  beforeEach(inject(function(validator) {
-    url_regexp = validator.regexp;
+  beforeEach(inject(function($compile, $rootScope) {
+    $scope = $rootScope;
+    var element = angular.element(
+      '<form name="form" novalidate>' +
+        '<input ng-model="url" type="url" name="url" validate-url>' +
+      '</form>'
+    );
+    $scope.url = null;
+    $compile(element)($scope);
+    form = $scope.form;
   }));
 
   // urls are based on test cases from RFC1738, RFC3986,
@@ -85,17 +94,35 @@ describe('Url validator', function() {
     // 'http://example.w3.org/%at'
   ];
 
-  it('accepts valid urls', function() {
+  it('accepts valid urls and filepaths', function() {
     for (var scheme in schemes)
-      for (var i = 0; i < valid_urls.length; ++i)
-        expect(url_regexp.test(schemes[scheme] + valid_urls[i])).to.equal(true);
+      for (var i = 0; i < valid_urls.length; ++i) {
+        form.url.$setViewValue(schemes[scheme] + valid_urls[i]);
 
-    for (var j = 0; j < valid_filepaths.length; ++j)
-      expect(url_regexp.test(valid_filepaths[j])).to.equal(true);
+        $scope.$digest();
+
+        expect($scope.url).to.equal(schemes[scheme] + valid_urls[i]);
+        expect(form.url.$valid).to.equal(true);
+      }
+
+    for (var j = 0; j < valid_filepaths.length; ++j) {
+      form.url.$setViewValue(valid_filepaths[j]);
+
+      $scope.$digest();
+
+      expect($scope.url).to.equal(valid_filepaths[j]);
+      expect(form.url.$valid).to.equal(true);
+    }
   });
 
-  it('does not accept invalid urls', function() {
-    for (var i = 0; i < valid_urls.length; ++i)
-      expect(url_regexp.test(invalid_urls[i])).to.equal(false);
+  it('does not accept invalid urls and filepaths', function() {
+    for (var i = 0; i < invalid_urls.length; ++i) {
+      form.url.$setViewValue(invalid_urls[i]);
+
+      $scope.$digest();
+
+      expect($scope.url).to.equal(undefined);
+      expect(form.url.$valid).to.equal(false);
+    }
   });
 });
