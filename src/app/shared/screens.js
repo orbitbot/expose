@@ -8,12 +8,16 @@
       scope: {
         height   : '@',
         width    : '@',
-        portrait : '@'
+        portrait : '@',
+        url      : '='
       },
       template: '<iframe class="frame" frameborder="0" border="0" marginwidth="0" marginheight="0" scrolling></iframe>',
       link: function(scope, element, attr) {
-        element.attr('src', attr.url);
-        element.on('load', function() { console.log('load'); });
+        element.attr('src', scope.url);
+        scope.$watch('url', function(change) {
+          element.attr('src', change);
+        });
+
         attr.$observe('portrait', function(change) {
           if (scope.$eval(change)) {
             element.attr('height', attr.height);
@@ -24,6 +28,7 @@
           }
         });
 
+        element.on('load', function() { console.log('load'); });
       }
     };
   }]);

@@ -8,7 +8,7 @@ describe('SettingsCtrl', function() {
 
   beforeEach(inject(function($controller, $rootScope) {
     scope = $rootScope.$new();
-    ctrl = $controller('AboutCtrl', {
+    ctrl = $controller('SettingsCtrl', {
       $scope: scope
     });
   }));

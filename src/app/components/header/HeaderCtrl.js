@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('exposure')
-    .controller('HeaderCtrl', ['$window', '$scope', 'active', 'history', 'screenSizes',
-                              function($window, $scope, active, history, screenSizes) {
+    .controller('HeaderCtrl', ['$window', '$scope', '$location', '$state', 'active', 'history', 'screenSizes',
+                              function($window, $scope, $location, $state, active, history, screenSizes) {
 
     $scope.active = active;
     $scope.lock = false;
@@ -19,19 +19,22 @@
     ];
 
     $scope.loadPage = function(url) {
-      console.log('loadPage ' + url);
-
       if ($scope.url) {
         history.add({
           url       : url,
           timestamp : Date(),
           screens   : angular.copy($scope.active.screens)
         });
+
+        active.url = $scope.url;
+        $location.path('/');
       }
     };
 
     $scope.toggleScreen = function(screenName) {
-      if (!$scope.lock)
+      if (!$state.is('app'))
+        $location.path('/');
+      else if (!$scope.lock)
         active.toggle(screenName);
     };
 
