@@ -33,37 +33,12 @@
           }
         }
       })
-      .state('app.docs', {
-        url: 'docs',
-        views: {
-          'content@': {
-            templateUrl: 'docs/docs.html'
-          }
-        }
-      })
       .state('app.history', {
         url: 'history',
         views: {
           'content@': {
             controller: 'HistoryCtrl',
             templateUrl: 'history/history.html'
-          }
-        }
-      })
-      .state('app.menu', {
-        url: 'menu',
-        views: {
-          'content@': {
-            templateUrl: 'menu/menu.html'
-          }
-        }
-      })
-      .state('app.settings', {
-        url: 'settings',
-        views: {
-          'content@': {
-            controller: 'SettingsCtrl',
-            templateUrl: 'settings/settings.html'
           }
         }
       });
