@@ -54,6 +54,6 @@
 
   angular.module('exposure')
     .constant('version', {
-      semver: '0.0.5'
+      semver: '0.0.7'
     });
 })();

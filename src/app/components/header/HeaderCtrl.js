@@ -13,9 +13,9 @@
     }, true);
 
     $scope.devices = [
-      { type: 'Mobile',  screens: screenSizes.mobile  },
-      { type: 'Tablet',  screens: screenSizes.tablet  },
-      { type: 'Desktop', screens: screenSizes.desktop }
+      { type: 'mobile',  screens: screenSizes.mobile  },
+      { type: 'tablet',  screens: screenSizes.tablet  },
+      { type: 'desktop', screens: screenSizes.desktop }
     ];
 
     $scope.loadPage = function(url) {

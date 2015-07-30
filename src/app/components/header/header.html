@@ -1,6 +1,8 @@
 <div class="header">
-  <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-    <a ui-sref="." class="pure-menu-heading">Exposure</a>
+  <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed"
+    scroll trigger="40" scope-var="shadow"
+    ng-class="{ shadow : box-shadow }">
+    <a ui-sref="." class="pure-menu-heading">responsive.fail</a>
 
     <ul class="pure-menu-list">
 
@@ -10,11 +12,15 @@
         </a>
       </li>
 
-      <li class="pure-menu-item"><a ui-sref=".history" class="pure-menu-link">History</a></li>
-      <li class="pure-menu-item"><a ui-sref=".about" class="pure-menu-link">About</a></li>
+      <li class="pure-menu-item hint--bottom" data-hint="About">
+        <a ui-sref=".about" class="pure-menu-link"><strong>?</strong></a>
+      </li>
     </ul>
 
     <ul class="pure-menu-list nav-center">
+      <li class="pure-menu-item hint--bottom" data-hint="History">
+        <a ui-sref=".history" class="pure-menu-link"><i class="icon-history"></i></a>
+      </li>
       <li class="pure-menu-item">
         <form novalidate class="url-form" ng-submit="loadPage(url)">
           <input ng-model="url" type="url" validate-url>
@@ -22,12 +28,19 @@
       </li>
     </ul>
 
-    <ul class="pure-menu-list u-pull-right">
+    <ul class="pure-menu-list u-pull-right" ng-init="hovering.section = ''">
+      <span class="hovering">{{ hovering.section }}</span>
 
-      <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover"
+      <li class="pure-menu-item pure-menu-allow-hover"
         ng-repeat="device in devices">
-        <a href="#" id="menuLink1" class="pure-menu-link">{{ device.type }}</a>
-        <ul class="pure-menu-children">
+
+        <a href="#" class="pure-menu-link"
+          ng-mouseenter="hovering.section = device.type"
+          ng-mouseleave="hovering.section = ''">
+          <i class="icon-{{ device.type }}"></i></a>
+        <ul class="pure-menu-children"
+          ng-mouseenter="hovering.section = device.type"
+          ng-mouseleave="hovering.section = ''">
 
           <li class="pure-menu-item"
             ng-repeat="screen in device.screens">
@@ -41,10 +54,12 @@
         </ul>
       </li>
 
-      <li class="pure-menu-item">
+      <li class="pure-menu-item hint--left" data-hint="Click to {{ lock ? 'enable' : 'disable' }} screen selection">
         <a href="#" class="pure-menu-link"
           ng-class="lock ? '' : 'pure-menu-disabled'"
-          ng-click="lock = !lock">Lock</a>
+          ng-click="lock = !lock">
+          <i ng-class="lock ? 'icon-lock' : 'icon-lock-open'"></i>
+        </a>
       </li>
     </ul>
   </div>

@@ -1,11 +1,44 @@
-<div class="container">
-  <button>Enable/disable</button>
-  <button ng-click="clearHistory()">Clear history</button>
+<div class="container history-container">
+  <div class="row controls">
+    <button><i class="icon-toggle-on"></i>Enabled</button>
+    <button class="u-pull-right" ng-click="clearHistory()">Clear history</button>
+  </div>
 
-  <div ng-repeat="website in history" style="height:40px; border: 1px solid #ddd; margin: 10px 0; padding:4px;">
-    <button class="u-pull-right" ng-click="remove(website.url)">Remove</button>
-    <p>
-      {{ website.url }}&nbsp;<span ng-repeat="screen in website.screens">&nbsp;{{ screen.name }}&nbsp;</span>&nbsp;-&nbsp;{{ website.timestamp | fromNow }}
-    </p>
+  <div class="row" ng-repeat="website in history">
+
+    <div class="ten columns">
+      <table class="u-full-width">
+        <tbody>
+          <tr>
+            <td class="header-row">www.</td>
+            <td class="u-full-width">{{ website.url }}</td>
+          </tr>
+          <tr>
+            <td class="header-row inline-icon">
+              <i class="icon-mobile"></i>
+              <i class="icon-tablet"></i>
+              <i class="icon-desktop"></i>
+            </td>
+            <td class="u-full-width smaller-font"><span class="devices" ng-repeat="screen in website.screens">{{ screen.name }}&nbsp;</span></td>
+          </tr>
+          <tr>
+            <td class="header-row"><i class="icon-clock"></i></td>
+            <td class="u-full-width smaller-font">{{ website.timestamp | fromNow }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two columns actions" ng-init="row.action = ''">
+      <i class="icon-export"
+        ng-mouseenter="row.action = 'Restore'"
+        ng-mouseleave="row.action = ''"></i>
+      <i class="icon-trash-circled"
+        ng-mouseenter="row.action = 'Delete'"
+        ng-mouseleave="row.action = ''"
+        ng-click="remove(website.url)"></i><br>
+      <div class="action-hint">{{ row.action }}</div>
+    </div>
+
   </div>
 </div>

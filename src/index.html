@@ -10,10 +10,17 @@
     <!-- at:css >> css/lib.css -->
     <link rel="stylesheet" href="../bower_components/normalize.css/normalize.css">
     <link rel="stylesheet" href="../bower_components/pure/menus.css">
+    <link rel="stylesheet" href="../bower_components/hint.css/hint.base.css">
     <!-- at:end -->
     <!-- at:less >> css/site.css -->
     <link rel="stylesheet" href="assets/less/base.less">
+    <link rel="stylesheet" href="assets/less/colors.less">
+    <link rel="stylesheet" href="assets/less/fonts.less">
+    <link rel="stylesheet" href="assets/less/icons.less">
+    <link rel="stylesheet" href="app/components/about/about.less">
+    <link rel="stylesheet" href="app/components/examine/examine.less">
     <link rel="stylesheet" href="app/components/header/header.less">
+    <link rel="stylesheet" href="app/components/history/history.less">
     <!-- at:end -->
     <script>
       document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
@@ -38,7 +45,7 @@
 
     <div ng-cloak>
       <div ui-view="header"></div>
-      <div ui-view="content"></div>
+      <div ui-view="content" class="header-offset"></div>
     </div>
 
     <!-- at:js >> js/lib.js -->
@@ -59,6 +66,7 @@
     <script type="text/javascript" src="app/model/screenSizes.js"></script>
     <script type="text/javascript" src="app/shared/filters.js"></script>
     <script type="text/javascript" src="app/shared/screens.js"></script>
+    <script type="text/javascript" src="app/shared/scroll-trigger.js"></script>
     <script type="text/javascript" src="app/components/about/AboutCtrl.js"></script>
     <script type="text/javascript" src="app/components/examine/ExamineCtrl.js"></script>
     <script type="text/javascript" src="app/components/header/HeaderCtrl.js"></script>
@@ -136,8 +144,8 @@
         </div>
 
         <div class="container noscript">
-          <p>Exposure requires Javascript for fundamental functioanlity, please enable support in your browser and reload</p>
-          <p>Exposure is an open source project, source code is available on <a href="https://github.com/orbitbot/exposure" target="_blank">GitHub</a></p>
+          <p>responsive.fail requires Javascript for fundamental functioanlity, please enable support in your browser and reload</p>
+          <p>responsive.fail is an open source project, source code is available on <a href="https://github.com/orbitbot/exposure" target="_blank">GitHub</a></p>
         </div>
     </div>
 
