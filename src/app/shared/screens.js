@@ -11,7 +11,7 @@
         portrait : '@',
         url      : '='
       },
-      template: '<iframe class="frame" frameborder="0" border="0" marginwidth="0" marginheight="0" scrolling></iframe>',
+      template: '<iframe frameborder="0" marginwidth="0" marginheight="0" scrolling></iframe>',
       link: function(scope, element, attr) {
         element.attr('src', scope.url);
         scope.$watch('url', function(change) {

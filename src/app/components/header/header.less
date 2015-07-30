@@ -1,18 +1,28 @@
+@import 'src/assets/less/colors';
+
 .home-menu {
-  // background-color: lightgrey;
   padding: 0.5em;
   text-align: left; // center in low res media queries
-  box-shadow: 0 1px 1px rgba(0,0,0, 0.2);
+  background-color: @background-color;
   form {
     margin: 0;
   }
   input {
-    width: 520px;
+    width: 680px;
     margin: 0;
   }
   button {
     margin: 0;
   }
+  .hovering {
+    font-size: 90%;
+    text-transform: capitalize;
+    opacity: 0.4;
+  }
+}
+
+.shadow {
+  box-shadow: 0 -4px 0 4px #edeff0,0 2px 4px 0 rgba(0,0,0,0.2);
 }
 
 .nav-center {
@@ -26,4 +36,15 @@
 
 .url-form input.ng-invalid.ng-touched {
   background-color: #ffc8cb;
+}
+
+.pure-menu-heading {
+  padding: 1px 1em 0 1em;
+  font-family: oswald;
+  font-size: 2.4rem;
+  text-transform: none;
+}
+
+.header-offset {
+  margin-top: 3.8em;
 }

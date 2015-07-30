@@ -1,13 +1,21 @@
-<div style="margin:8px; display: inline-block"
+<div class="screen"
   ng-repeat="screen in current.screens">
-  <p style="border: 1px solid #ddd; margin: 10px 0; padding:4px;text-align:center;">
-    {{ screen.name }} {{ screen.width }}x{{ screen.height }}
-    <button ng-click="screen.portrait = !screen.portrait">toggle</button><br />
-  </p>
+  <div class="screen-controls">
+    <div class="name u-pull-left">{{ screen.name }}</div>
+    <span class="dimensions">{{ screen.width }}x{{ screen.height }} - {{ screen.portrait ? 'portrait' : 'landscape' }}</span>
+    <i ng-click="screen.portrait = !screen.portrait" class="icon-arrows-ccw u-pull-right"></i>
+  </div>
   <screen
     url="current.url"
     width="{{ screen.width }}"
     height="{{ screen.height }}"
     portrait="{{ screen.portrait}}">
   </screen>
+</div>
+
+<div class="container greeter" ng-if="!current.screens.length">
+  <p>
+    Get started filler. imagine a picture, with some helpful text.
+  </p>
+  <a ui-sref=".about" class="button button-primary">About</a>
 </div>
