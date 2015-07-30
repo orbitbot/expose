@@ -1,11 +1,8 @@
-(function() {
+angular.module('exposure')
+  .controller('ExamineCtrl', ['$scope', 'active',
+                             function($scope, active) {
   'use strict';
 
-  angular.module('exposure')
-    .controller('ExamineCtrl', ['$scope', 'active',
-                               function($scope, active) {
+  $scope.current = active;
 
-    $scope.current = active;
-
-  }]);
-})();
+}]);
