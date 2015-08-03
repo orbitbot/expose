@@ -17,7 +17,7 @@ angular.module('exposure').directive('screen', [function() {
       });
 
       attr.$observe('portrait', function(change) {
-        if (scope.$eval(change)) {
+        if (change === '' || scope.$eval(change)) {
           element.attr('height', attr.height);
           element.attr('width', attr.width);
         } else {
