@@ -1,22 +1,26 @@
 angular.module('exposure')
-  .controller('HistoryCtrl', ['$scope', 'history',
-                             function($scope, history) {
+  .controller('HistoryCtrl', ['$scope', 'history', 'preloaded', 'settings',
+                             function($scope, history, preloaded, settings) {
   'use strict';
+
+  $scope.settings = settings.history;
+  $scope.history = preloaded;
 
   function updateView() {
     history.get().then(function(res) {
       $scope.history = res;
     });
   }
-  updateView();
 
   $scope.remove = function(url) {
-    history.remove(url)
+    history
+      .remove(url)
       .then(updateView);
   };
 
   $scope.clearHistory = function() {
-    history.clear()
+    history
+      .clear()
       .then(updateView);
   };
 

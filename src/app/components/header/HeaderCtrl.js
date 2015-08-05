@@ -1,6 +1,6 @@
 angular.module('exposure')
-  .controller('HeaderCtrl', ['$window', '$scope', '$location', '$state', 'active', 'history', 'screenSizes',
-                            function($window, $scope, $location, $state, active, history, screenSizes) {
+  .controller('HeaderCtrl', ['$window', '$scope', '$location', '$state', 'settings', 'active', 'history', 'screenSizes',
+                            function($window, $scope, $location, $state, settings, active, history, screenSizes) {
   'use strict';
 
   $scope.active = active;
@@ -17,12 +17,15 @@ angular.module('exposure')
   ];
 
   $scope.loadPage = function(url) {
+    console.log('settings.history.enabled ' + settings.history.enabled);
     if ($scope.url) {
-      history.add({
-        url       : url,
-        timestamp : Date(),
-        screens   : angular.copy($scope.active.screens)
-      });
+      if (settings.history.enabled) {
+        history.add({
+          url       : url,
+          timestamp : Date(),
+          screens   : angular.copy($scope.active.screens)
+        });
+      }
 
       active.url = $scope.url;
       $location.path('/');

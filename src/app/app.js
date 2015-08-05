@@ -20,6 +20,9 @@ angular.module('exposure').config(['$stateProvider', '$urlRouterProvider',
           controller: 'ExamineCtrl',
           templateUrl: 'examine/examine.html'
         }
+      },
+      resolve: {
+        settings: ['Settings', function(Settings) { return Settings; }]
       }
     })
     .state('app.about', {
@@ -38,6 +41,12 @@ angular.module('exposure').config(['$stateProvider', '$urlRouterProvider',
           controller: 'HistoryCtrl',
           templateUrl: 'history/history.html'
         }
+      },
+      resolve: {
+        preloaded: ['history', function(history) {
+          return history.get().then(function(res) { return res; });
+        }],
+        settings: ['Settings', function(Settings) { return Settings; }]
       }
     });
 }]);
@@ -53,4 +62,11 @@ angular.module('exposure').config(['pouchDBProvider', 'POUCHDB_METHODS',
 angular.module('exposure')
   .constant('version', {
     semver: '0.0.7'
+  })
+  .constant('Default', {
+    settings: {
+      history: {
+        enabled: true
+      }
+    }
   });
