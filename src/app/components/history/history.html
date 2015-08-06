@@ -1,15 +1,31 @@
 <div class="container history-container">
   <div class="row controls">
+
     <div class="two columns">
-      <h5>Storage</h5>
+      <h5 class="u-pull-right">Storage</h5>
     </div>
-    <div class="ten columns">
+    <div class="two columns">
       <button class="toggle-button"
         ng-class="settings.enabled ? 'enabled' : ''"
         ng-click="settings.enabled = !settings.enabled">
         {{ settings.enabled ? 'On' : 'Off' }}
         <i ng-class="settings.enabled ? 'icon-toggle-on' : 'icon-toggle-off'"></i>
       </button>
+    </div>
+
+    <div class="two columns">
+      <h5 class="u-pull-right">Restore</h5>
+    </div>
+    <div class="two columns">
+      <button class="toggle-button"
+        ng-class="settings.restore ? 'enabled' : ''"
+        ng-click="settings.restore = !settings.restore">
+        {{ settings.restore ? 'On' : 'Off' }}
+        <i ng-class="settings.restore ? 'icon-toggle-on' : 'icon-toggle-off'"></i>
+      </button>
+    </div>
+
+    <div class="four columns">
       <button class="delete-button u-pull-right" ng-click="clearHistory()">
         Clear history
         <i class="icon-trash-circled"></i>

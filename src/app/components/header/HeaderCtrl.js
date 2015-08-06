@@ -16,12 +16,11 @@ angular.module('exposure')
     { type: 'desktop', screens: screenSizes.desktop }
   ];
 
-  $scope.loadPage = function(url) {
-    console.log('settings.history.enabled ' + settings.history.enabled);
+  $scope.loadPage = function() {
     if ($scope.url) {
       if (settings.history.enabled) {
         history.add({
-          url       : url,
+          url       : $scope.url,
           timestamp : Date(),
           screens   : angular.copy($scope.active.screens)
         });
@@ -42,5 +41,19 @@ angular.module('exposure')
   $scope.updatePage = function() {
     $window.location.reload();
   };
+
+  if (settings.history.restore) {
+    history.get()
+      .then(function(res) {
+        var fst = res[0];
+        if (fst) {
+          fst.screens.forEach(function(screen) {
+            active.toggle(screen.name);
+          });
+          $scope.url = fst.url;
+          $scope.loadPage();
+        }
+      });
+  }
 
 }]);

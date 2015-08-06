@@ -66,7 +66,8 @@ angular.module('exposure')
   .constant('Default', {
     settings: {
       history: {
-        enabled: true
+        enabled: true,
+        restore: false
       }
     }
   });
