@@ -1,7 +1,7 @@
 angular.module('exposure').factory('active', ['screenSizes', function(screenSizes) {
   'use strict';
 
-  var url = 'http://localhost:3001';
+  var url = '';
   var screens = [];
 
   function toggleScreen(screenName) {

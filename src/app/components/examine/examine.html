@@ -16,9 +16,15 @@
   </screen>
 </div>
 
-<div class="container greeter" ng-if="!current.screens.length">
+<div class="container greeter" ng-if="!current.url && !current.screens.length">
   <p>
     Get started filler. imagine a picture, with some helpful text.
   </p>
   <a ui-sref=".about" class="button button-primary">About</a>
+</div>
+
+<div class="container greeter" ng-if="current.url && !current.screens.length">
+  <p>
+    You've selected {{ current.url }}, open some screens in the menus above.
+  </p>
 </div>
