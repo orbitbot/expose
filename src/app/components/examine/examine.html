@@ -2,20 +2,29 @@
   ng-repeat="screen in current.screens">
   <div class="screen-controls">
     <div class="name u-pull-left">{{ screen.name }}</div>
-    <span class="dimensions">{{ screen.width }}x{{ screen.height }} - {{ screen.portrait ? 'portrait' : 'landscape' }}</span>
-    <i ng-click="screen.portrait = !screen.portrait" class="icon-arrows-ccw u-pull-right"></i>
+    <span class="dimensions">{{ screen.width }}x{{ screen.height }}<span ng-show="screen.rotateable"> - {{ screen.portrait ? 'portrait' : 'landscape' }}<span></span>
+    <i class="icon-arrows-ccw u-pull-right"
+      ng-if="screen.rotateable"
+      ng-click="screen.portrait = !screen.portrait">
+    </i>
   </div>
   <screen
     url="current.url"
     width="{{ screen.width }}"
     height="{{ screen.height }}"
-    portrait="{{ screen.portrait}}">
+    portrait="{{ screen.portrait }}">
   </screen>
 </div>
 
-<div class="container greeter" ng-if="!current.screens.length">
+<div class="container greeter" ng-if="!current.url && !current.screens.length">
   <p>
     Get started filler. imagine a picture, with some helpful text.
   </p>
   <a ui-sref=".about" class="button button-primary">About</a>
+</div>
+
+<div class="container greeter" ng-if="current.url && !current.screens.length">
+  <p>
+    You've selected {{ current.url }}, open some screens in the menus above.
+  </p>
 </div>

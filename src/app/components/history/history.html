@@ -1,10 +1,39 @@
 <div class="container history-container">
   <div class="row controls">
-    <button><i class="icon-toggle-on"></i>Enabled</button>
-    <button class="u-pull-right" ng-click="clearHistory()">Clear history</button>
+
+    <div class="two columns">
+      <h5 class="u-pull-right">Storage</h5>
+    </div>
+    <div class="two columns">
+      <button class="toggle-button"
+        ng-class="settings.enabled ? 'enabled' : ''"
+        ng-click="settings.enabled = !settings.enabled">
+        {{ settings.enabled ? 'On' : 'Off' }}
+        <i ng-class="settings.enabled ? 'icon-toggle-on' : 'icon-toggle-off'"></i>
+      </button>
+    </div>
+
+    <div class="two columns">
+      <h5 class="u-pull-right">Restore</h5>
+    </div>
+    <div class="two columns">
+      <button class="toggle-button"
+        ng-class="settings.restore ? 'enabled' : ''"
+        ng-click="settings.restore = !settings.restore">
+        {{ settings.restore ? 'On' : 'Off' }}
+        <i ng-class="settings.restore ? 'icon-toggle-on' : 'icon-toggle-off'"></i>
+      </button>
+    </div>
+
+    <div class="four columns">
+      <button class="delete-button u-pull-right" ng-click="clearHistory()">
+        Clear history
+        <i class="icon-trash-circled"></i>
+      </button>
+    </div>
   </div>
 
-  <div class="row" ng-repeat="website in history">
+  <div class="row website" ng-repeat="website in history">
 
     <div class="ten columns">
       <table class="u-full-width">
@@ -32,7 +61,8 @@
     <div class="two columns actions" ng-init="row.action = ''">
       <i class="icon-export"
         ng-mouseenter="row.action = 'Restore'"
-        ng-mouseleave="row.action = ''"></i>
+        ng-mouseleave="row.action = ''"
+        ng-click="restore(website)"></i>
       <i class="icon-trash-circled"
         ng-mouseenter="row.action = 'Delete'"
         ng-mouseleave="row.action = ''"

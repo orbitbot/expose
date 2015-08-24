@@ -1,11 +1,8 @@
-(function() {
+angular.module('exposure').factory('database', ['pouchDB', function(pouchDB) {
   'use strict';
+  var db = pouchDB('exposure-history-dev', {
+    auto_compaction: true
+  });
 
-  angular.module('exposure').factory('database', ['pouchDB', function(pouchDB) {
-    var db = pouchDB('exposure-history-dev', {
-      auto_compaction: true
-    });
-
-    return db;
-  }]);
-})();
+  return db;
+}]);

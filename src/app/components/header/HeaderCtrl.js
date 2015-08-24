@@ -1,46 +1,63 @@
-(function() {
+angular.module('exposure')
+  .controller('HeaderCtrl', ['$window', '$scope', '$location', '$state', 'settings', 'active', 'history', 'screenSizes',
+                            function($window, $scope, $location, $state, settings, active, history, screenSizes) {
   'use strict';
 
-  angular.module('exposure')
-    .controller('HeaderCtrl', ['$window', '$scope', '$location', '$state', 'active', 'history', 'screenSizes',
-                              function($window, $scope, $location, $state, active, history, screenSizes) {
+  $scope.active = active;
+  $scope.lock = false;
 
-    $scope.active = active;
-    $scope.lock = false;
+  $scope.$watch('active.screens', function() {
+    $scope.activeNames = $scope.active.screens.map(function(elem) { return elem.name; });
+  }, true);
 
-    $scope.$watch('active.screens', function() {
-      $scope.activeNames = $scope.active.screens.map(function(elem) { return elem.name; });
-    }, true);
+  $scope.$watch('active.url', function() {
+    $scope.url = active.url;
+  }, true);
 
-    $scope.devices = [
-      { type: 'mobile',  screens: screenSizes.mobile  },
-      { type: 'tablet',  screens: screenSizes.tablet  },
-      { type: 'desktop', screens: screenSizes.desktop }
-    ];
+  $scope.devices = [
+    { type: 'mobile',  screens: screenSizes.mobile  },
+    { type: 'tablet',  screens: screenSizes.tablet  },
+    { type: 'desktop', screens: screenSizes.desktop }
+  ];
 
-    $scope.loadPage = function(url) {
-      if ($scope.url) {
+  $scope.loadPage = function() {
+    if ($scope.url) {
+      if (settings.history.enabled) {
         history.add({
-          url       : url,
+          url       : active.url,
           timestamp : Date(),
-          screens   : angular.copy($scope.active.screens)
+          screens   : angular.copy(active.screens)
         });
-
-        active.url = $scope.url;
-        $location.path('/');
       }
-    };
 
-    $scope.toggleScreen = function(screenName) {
-      if (!$state.is('app'))
-        $location.path('/');
-      else if (!$scope.lock)
-        active.toggle(screenName);
-    };
+      active.url = $scope.url;
+      $location.path('/');
+    }
+  };
 
-    $scope.updatePage = function() {
-      $window.location.reload();
-    };
+  $scope.toggleScreen = function(screenName) {
+    if (!$state.is('app'))
+      $location.path('/');
+    else if (!$scope.lock)
+      active.toggle(screenName);
+  };
 
-  }]);
-})();
+  $scope.updatePage = function() {
+    $window.location.reload();
+  };
+
+  if (settings.history.restore) {
+    history.get()
+      .then(function(res) {
+        var fst = res[0];
+        if (fst) {
+          fst.screens.forEach(function(screen) {
+            active.toggle(screen.name);
+          });
+          $scope.url = fst.url;
+          $scope.loadPage();
+        }
+      });
+  }
+
+}]);

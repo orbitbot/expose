@@ -1,7 +1,7 @@
 var gulp          = require('gulp');
 var $             = require('gulp-load-plugins')();
 var templatecache = require('gulp-angular-templatecache');
-var karma         = require('karma').server;
+var karma         = require('karma');
 var _             = require('lodash');
 var browserSync   = require('browser-sync');
 var at            = require('gulp-asset-transform');
@@ -112,11 +112,13 @@ gulp.task('clean', function(done) {
 
 
 gulp.task('karma', function(done) {
-  karma.start(_.assign({}, config.karma, { singleRun: true, colors: true }), done);
+  var server = new karma.Server(_.assign({}, config.karma, { singleRun: true, colors: true }), done);
+  server.start();
 });
 
 gulp.task('karma-ci', function(done) {
-  karma.start(_.assign({}, config.karma, { singleRun: false, colors: true, autoWatch: true }), done);
+  var server = new karma.Server(_.assign({}, config.karma, { singleRun: false, colors: true, autoWatch: true }), done);
+  server.start();
 });
 
 gulp.task('integration', ['server'], function(done) {
