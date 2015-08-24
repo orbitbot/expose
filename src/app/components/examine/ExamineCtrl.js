@@ -9,18 +9,16 @@ angular.module('exposure')
     if ($stateParams.website)
       active.url = decodeURIComponent($stateParams.website);
     if ($stateParams.screens) {
-      console.log('got screens', $stateParams.screens);
       var paramScreens = angular.fromJson($stateParams.screens);
-      paramScreens.forEach(active.toggle);
+      var activeScreens = active.screens.map(function(screen) { return screen.name; });
+      paramScreens.forEach(function(screenName) {
+        if (activeScreens.indexOf(screenName) < 0)
+          active.toggle(screenName);
+      });
     }
   }
 
-  if (active.url !== '' && active.screens.length && settings.history.enabled) {
-    history.add({
-      url       : active.url,
-      timestamp : Date(),
-      screens   : angular.copy(active.screens)
-    });
-  }
+  // if (active.url !== '' && active.screens.length && settings.history.enabled)
+  //   history.update(active.url, active.screens);
 
 }]);
