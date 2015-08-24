@@ -61,7 +61,7 @@ angular.module('exposure').config(['pouchDBProvider', 'POUCHDB_METHODS',
 
 angular.module('exposure')
   .constant('version', {
-    semver: '0.0.7'
+    semver: '0.0.8'
   })
   .constant('Default', {
     settings: {
