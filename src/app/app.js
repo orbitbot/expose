@@ -10,7 +10,7 @@ angular.module('exposure').config(['$stateProvider', '$urlRouterProvider',
 
   $stateProvider
     .state('app', {
-      url: '/',
+      url: '/?website&screens',
       views: {
         'header': {
           controller: 'HeaderCtrl',

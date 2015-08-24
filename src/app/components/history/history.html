@@ -61,7 +61,8 @@
     <div class="two columns actions" ng-init="row.action = ''">
       <i class="icon-export"
         ng-mouseenter="row.action = 'Restore'"
-        ng-mouseleave="row.action = ''"></i>
+        ng-mouseleave="row.action = ''"
+        ng-click="restore(website)"></i>
       <i class="icon-trash-circled"
         ng-mouseenter="row.action = 'Delete'"
         ng-mouseleave="row.action = ''"

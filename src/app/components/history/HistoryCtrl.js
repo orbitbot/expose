@@ -1,6 +1,6 @@
 angular.module('exposure')
-  .controller('HistoryCtrl', ['$scope', 'history', 'preloaded', 'settings',
-                             function($scope, history, preloaded, settings) {
+  .controller('HistoryCtrl', ['$scope', '$state', 'history', 'preloaded', 'settings',
+                             function($scope, $state, history, preloaded, settings) {
   'use strict';
 
   $scope.settings = settings.history;
@@ -16,6 +16,14 @@ angular.module('exposure')
     history
       .remove(url)
       .then(updateView);
+  };
+
+  $scope.restore = function(website) {
+    var screens = website.screens ? website.screens.map(function(screen) { return screen.name; }) : [];
+    $state.go('app', {
+      website : website.url,
+      screens : angular.toJson(screens)
+    });
   };
 
   $scope.clearHistory = function() {

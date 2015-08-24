@@ -5,7 +5,6 @@ angular.module('exposure').factory('active', ['screenSizes', function(screenSize
   var screens = [];
 
   function toggleScreen(screenName) {
-
     for (var i = 0; i < screens.length; ++i) {
       if (screens[i].name === screenName) {
         screens.splice(i, 1);

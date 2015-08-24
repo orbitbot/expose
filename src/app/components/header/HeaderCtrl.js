@@ -10,6 +10,10 @@ angular.module('exposure')
     $scope.activeNames = $scope.active.screens.map(function(elem) { return elem.name; });
   }, true);
 
+  $scope.$watch('active.url', function() {
+    $scope.url = active.url;
+  }, true);
+
   $scope.devices = [
     { type: 'mobile',  screens: screenSizes.mobile  },
     { type: 'tablet',  screens: screenSizes.tablet  },
@@ -20,9 +24,9 @@ angular.module('exposure')
     if ($scope.url) {
       if (settings.history.enabled) {
         history.add({
-          url       : $scope.url,
+          url       : active.url,
           timestamp : Date(),
-          screens   : angular.copy($scope.active.screens)
+          screens   : angular.copy(active.screens)
         });
       }
 
