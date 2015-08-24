@@ -1,10 +1,13 @@
 angular.module('exposure')
-  .controller('HistoryCtrl', ['$scope', '$state', 'history', 'preloaded', 'settings',
-                             function($scope, $state, history, preloaded, settings) {
+  .controller('HistoryCtrl', ['$scope', '$state', '$location', 'history', 'preloaded', 'settings',
+                             function($scope, $state, $location, history, preloaded, settings) {
   'use strict';
 
   $scope.settings = settings.history;
   $scope.history = preloaded;
+
+  $location.search('website', null);
+  $location.search('screens', null);
 
   function updateView() {
     history.get().then(function(res) {
